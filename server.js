@@ -10,7 +10,12 @@ app.use(bodyParser.json());
 
 app.get('/ping', (req, res) => {
   res.send('pong');
-})
+});
+
+app.get('/schools', async (req, res) => {
+  const schools = await prisma.school.findMany({ where: { status: 1 } });
+  res.json(schools);
+});
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
